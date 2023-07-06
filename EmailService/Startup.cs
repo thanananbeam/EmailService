@@ -1,6 +1,7 @@
 using EmailService.DataAccess;
 using EmailService.DataAccess.Attributes;
 using EmailService.DataAccess.LiteDb;
+using EmailService.Model;
 using EmailService.Service;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -79,12 +80,13 @@ namespace EmailService
             // db
             services.AddScoped<ActionFilter>();
             services.Configure<LiteDbOptions>(Configuration.GetSection("LiteDbOptions"));
+            services.Configure<JwtEmail>(Configuration.GetSection("JwtEmail"));
+
             services.AddSingleton<ILiteDbContext, LiteDbContext>();
 
 
             // service 
             services.AddTransient<IEmailLogicService, EmailLogicService>();
-            //services.AddTransient<ILiteDbEmailService, LiteDbEmailService>();
             services.AddTransient<IRepoLiteDB, RepoLiteDB>();
             
 

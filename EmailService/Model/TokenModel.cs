@@ -23,4 +23,10 @@ namespace EmailService.Model
     {
         public string Token { get; set; }
     }
+
+    public class JwtEmail
+    { 
+        public string email { get; set; }
+        public int timeout { get; set; }
+    }
 }

@@ -23,7 +23,7 @@ namespace EmailService.DataAccess
             byte[] key = Encoding.ASCII.GetBytes(JWT.secret);
             SymmetricSecurityKey securityKey = new SymmetricSecurityKey(key);
 
-            int timeout = Startup.StaticConfig.GetValue<int>("Timeout");
+            int timeout = Startup.StaticConfig.GetValue<int>("JwtEmail:timeout");
 
             SecurityTokenDescriptor descriptor = new SecurityTokenDescriptor
             {

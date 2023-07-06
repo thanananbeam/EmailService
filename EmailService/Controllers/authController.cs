@@ -4,6 +4,7 @@ using EmailService.Model;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using System.ComponentModel.DataAnnotations;
 
 namespace EmailService.Controllers
@@ -12,11 +13,10 @@ namespace EmailService.Controllers
     [ApiController]
     public class authController : ControllerBase
     {
-        private readonly ILogger<emailController> _logger;
-
-        public authController(ILogger<emailController> logger)
+        private readonly IOptions<JwtEmail> _options;
+        public authController(IOptions<JwtEmail> options )
         {
-            _logger = logger;
+            _options = options;
         }
 
 
@@ -30,7 +30,7 @@ namespace EmailService.Controllers
 
             if (!string.IsNullOrEmpty(model.email))
             {
-                if (model.email == "user@example.com")
+                if (model.email.ToLower() == _options.Value.email.ToLower())
                 {
                     _res.Token = JWT.GenerateToken(model.email);
                 }
